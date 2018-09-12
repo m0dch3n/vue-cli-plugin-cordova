@@ -19,12 +19,12 @@ $ npm run cordova-build-ios # Build IOS
 * Setting cordovaPath in **vue.config.js** 
 * Checking if **router** is available and modify router mode to **'hash'** if process.env.CORDOVA_PLATFORM is set
 * Adding ignore paths for cordova in **.gitignore**
-* Executing '**cordova create cordovaPath id appName**' (cordovaPath, id and appName will be prompted)
+* Executing '**cordova create cordovaPath id appName**' (cordovaPath, id and appName will be **prompted**)
 * Executing '**cordova platform add platform**' (platform will be prompted) 
 
 ### In development mode
 
-* Adding **cordova.js** to your index.html
+* Adding **cordova.js** to your **index.html**
 * Defining **process.env.CORDOVA_PLATFORM** to **android** or **ios**
 * Starting the Dev Server
 * Pointing the cordova **config.xml** to Dev Server
@@ -32,10 +32,10 @@ $ npm run cordova-build-ios # Build IOS
 * Executing '**cordova run platform**'
 
 ### In Production mode
-* Adding cordova.js to your index.html
+* Adding **cordova.js** to your **index.html**
 * Defining **process.env.CORDOVA_PLATFORM** to **android** or **ios**
-* Pointing the cordova config.xml to index.html
-* Building the app, output to /cordovaPath/www
+* Pointing the cordova **config.xml** to **index.html**
+* Building the app, output to **/cordovaPath/www**
 * Executing '**cordova clean**'
 * Executing '**cordova build platform  --release**'
 
@@ -43,8 +43,8 @@ $ npm run cordova-build-ios # Build IOS
 
 * You need to **manually sign** and publish the app in the app store
 * You need to handle cordova's **"deviceready"** etc in your app
-* Cordova Plugins can be added under /cordovaPath by executing '**cordova plugin add PLUGIN**' 
-* If you want to debug your build app, using chrome devtools, build your app with '**cordova build platform --debug**' and make sure /cordovaPath/www has your **latest build**
+* **Cordova Plugins** can be added under /cordovaPath by executing '**cordova plugin add PLUGIN**' 
+* If you want to **debug** your build app, using chrome devtools, build your app with '**cordova build platform --debug**' and make sure /cordovaPath/www has your **latest build**
 
 ## License
 MIT
