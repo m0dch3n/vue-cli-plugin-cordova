@@ -41,10 +41,10 @@ $ npm run cordova-build-ios # Build IOS
 
 ## Please note
 
-* You need to **manually sign** and publish the app in the app store
+* You need to **manually sign** and **publish** the app in the app store
 * You need to handle cordova's **"deviceready"** etc in your app
 * **Cordova Plugins** can be added under /cordovaPath by executing '**cordova plugin add PLUGIN**' 
-* If you want to **debug** your build app, using chrome devtools, build your app with '**cordova build platform --debug**' and make sure /cordovaPath/www has your **latest build**
+* If you want to **debug** your build app, using **chrome devtools**, build your app with '**cordova build platform --debug**' and make sure /cordovaPath/www has your **latest build**
 
 ## License
 MIT
