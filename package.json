@@ -1,0 +1,36 @@
+{
+  "name": "@m0dch3n/vue-cli-plugin-cordova",
+  "version": "0.0.1",
+  "description": "vue-cli 3.x plugin for Apache Cordova",
+  "main": "index.js",
+  "scripts": {
+    "release": "standard-version"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m0dch3n/vue-cli-plugin-cordova.git"
+  },
+  "keywords": [
+    "vue",
+    "cordova",
+    "vue-cli"
+  ],
+  "author": "m0dch3n",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/m0dch3n/vue-cli-plugin-cordova/issues"
+  },
+  "homepage": "https://github.com/m0dch3n/vue-cli-plugin-cordova#readme",
+  "dependencies": {
+    "@vue/cli-shared-utils": "^3.0.2",
+    "address": "^1.0.3",
+    "cordova-plugin-device": "^2.0.1",
+    "html-webpack-include-assets-plugin": "^1.0.4",
+    "portfinder": "^1.0.13"
+  },
+  "devDependencies": {
+    "eslint": "^4.18.2",
+    "eslint-plugin-vue-libs": "^2.1.0",
+    "standard-version": "^4.3.0"
+  }
+}

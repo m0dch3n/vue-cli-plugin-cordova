@@ -1,0 +1,12 @@
+{
+  "extends": ["plugin:vue-libs/recommended"],
+  "env": {
+  },
+  "globals": {
+    "device": true
+  },
+  "rules": {
+    "indent": ["error", 2, { "MemberExpression": "off" }]
+  }
+}
+
