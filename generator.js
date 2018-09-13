@@ -14,7 +14,9 @@ module.exports = (api, options) => {
       'cordova-serve-android': 'vue-cli-service cordova-serve-android',
       'cordova-build-android': 'vue-cli-service cordova-build-android',
       'cordova-serve-ios': 'vue-cli-service cordova-serve-ios',
-      'cordova-build-ios': 'vue-cli-service cordova-build-ios'
+      'cordova-build-ios': 'vue-cli-service cordova-build-ios',
+      'cordova-serve-browser': 'vue-cli-service cordova-serve-browser',
+      'cordova-build-browser': 'vue-cli-service cordova-build-browser'
     },
     vue: {
       baseUrl: '',
