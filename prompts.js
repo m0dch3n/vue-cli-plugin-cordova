@@ -36,6 +36,11 @@ module.exports = [
         name: 'iOS',
         value: 'ios',
         checked: !!defaults.platforms['ios']
+      },
+      {
+        name: 'Browser',
+        value: 'browser',
+        checked: !!defaults.platforms['browser']
       }
     ]
   }
