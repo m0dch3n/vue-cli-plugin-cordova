@@ -177,7 +177,7 @@ module.exports = (api, options) => {
     // cordova clean
     await cordovaClean()
     // cordova build --release (if you want a build debug build, use cordovaBuild(false)
-    await cordovaBuild(false)
+    await cordovaBuild()
   }
 
   const projectDevServerOptions = options.devServer || {}
