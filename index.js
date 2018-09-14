@@ -187,8 +187,10 @@ module.exports = (api, options) => {
   const platform = getPlatform(api.service.mode)
 
   api.configureDevServer(app => {
-    // /cordova.js should resolve to platform cordova.js
-    app.use(cordovaJSMiddleware())
+    if (defaultModes[api.service.mode]) {
+      // /cordova.js should resolve to platform cordova.js
+      app.use(cordovaJSMiddleware())
+    }
   })
 
   api.registerCommand('cordova-serve-android', async args => {
