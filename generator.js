@@ -29,9 +29,7 @@ module.exports = (api, options) => {
 
     // router
     if (api.hasPlugin('router')) {
-      const cordovaErrorMessage = 'Cordova only supports router mode: \'hash\''
       let cordovaRouterMode = 'process.env.CORDOVA_PLATFORM ? \'hash\' : '
-      const cordovaNewModeMessage = 'Please modify manually router mode to "mode: ' + cordovaRouterMode + 'yourNormalRouterMode\"'
       const routerFilePath = `src/router.${hasTS ? 'ts' : 'js'}`
       const routerFile = files[routerFilePath]
       if (routerFile) {
@@ -48,15 +46,13 @@ module.exports = (api, options) => {
           lines[modeIndex] = lines[modeIndex].replace(routerMode, newRouterMode)
           api.exitLog('Updated ' + routerFilePath + ' : ' + newRouterMode)
         } else {
-          api.exitLog(cordovaErrorMessage, 'error')
-          api.exitLog('Unable to modify router mode in ' + routerFilePath, 'error')
-          api.exitLog(cordovaNewModeMessage, 'error')
+          if (routerFile.includes('mode:')) {
+            api.exitLog('Unable to modify current router mode, make sure it\'s \'hash\'', 'warn')
+          }
         }
         files[routerFilePath] = lines.reverse().join('\n')
       } else {
-        api.exitLog(cordovaErrorMessage, 'error')
-        api.exitLog('Unable to find router in ' + routerFilePath, 'error')
-        api.exitLog(cordovaNewModeMessage, 'error')
+        api.exitLog('Unable to find router file, make sure router mode is \'hash\'', 'warn')
       }
     }
   })
