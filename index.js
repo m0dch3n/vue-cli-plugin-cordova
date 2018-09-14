@@ -10,7 +10,9 @@ const defaultModes = {
   'cordova-serve-android': 'cordova-serve-android',
   'cordova-build-android': 'cordova-build-android',
   'cordova-serve-ios': 'cordova-serve-ios',
-  'cordova-build-ios': 'cordova-build-ios'
+  'cordova-build-ios': 'cordova-build-ios',
+  'cordova-serve-browser': 'cordova-serve-browser',
+  'cordova-build-browser': 'cordova-build-browser'
 }
 
 module.exports = (api, options) => {
@@ -206,6 +208,14 @@ module.exports = (api, options) => {
   })
 
   api.registerCommand('cordova-build-ios', async args => {
+    return await runBuild(args)
+  })
+
+  api.registerCommand('cordova-serve-browser', async args => {
+    args.open = true
+    return await api.service.run('serve', args)
+  })
+  api.registerCommand('cordova-build-browser', async args => {
     return await runBuild(args)
   })
 
