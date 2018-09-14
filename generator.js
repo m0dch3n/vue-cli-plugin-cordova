@@ -1,6 +1,7 @@
 const fs = require('fs')
 const defaults = require('./defaults')
 const { spawnSync } = require('child_process')
+const { info } = require('@vue/cli-shared-utils')
 
 module.exports = (api, options) => {
   // cordova options
@@ -29,7 +30,7 @@ module.exports = (api, options) => {
 
     // router
     if (api.hasPlugin('router')) {
-      let cordovaRouterMode = 'process.env.CORDOVA_PLATFORM ? \'hash\' : '
+      let cordovaRouterMode = `process.env.CORDOVA_PLATFORM ? 'hash' : `
       const routerFilePath = `src/router.${hasTS ? 'ts' : 'js'}`
       const routerFile = files[routerFilePath]
       if (routerFile) {
@@ -40,19 +41,19 @@ module.exports = (api, options) => {
           const matches = lines[modeIndex].match(regex)
           const routerMode = matches[1]
           if (routerMode.includes('"')) {
-            cordovaRouterMode = cordovaRouterMode.replace('\'hash\'', '"hash"')
+            cordovaRouterMode = cordovaRouterMode.replace(`'hash'`, `"hash"`)
           }
           const newRouterMode = cordovaRouterMode + routerMode
           lines[modeIndex] = lines[modeIndex].replace(routerMode, newRouterMode)
           api.exitLog('Updated ' + routerFilePath + ' : ' + newRouterMode)
         } else {
           if (routerFile.includes('mode:')) {
-            api.exitLog('Unable to modify current router mode, make sure it\'s \'hash\'', 'warn')
+            api.exitLog(`Unable to modify current router mode, make sure it's 'hash'`, 'warn')
           }
         }
         files[routerFilePath] = lines.reverse().join('\n')
       } else {
-        api.exitLog('Unable to find router file, make sure router mode is \'hash\'', 'warn')
+        api.exitLog(`Unable to find router file, make sure router mode is 'hash'`, 'warn')
       }
     }
   })
@@ -67,12 +68,12 @@ module.exports = (api, options) => {
     var ignoreContent = '\n# Cordova\n'
     const folders = ['www', 'platforms', 'plugins']
     folders.forEach(folder => {
-      ignoreContent += '/' + cordovaPath + '/' + folder + '\n'
+      ignoreContent += `/${cordovaPath}/${folder}\n`
     })
     ignoreContent += '/public/cordova.js\n'
 
     fs.writeFileSync(ignoreCompletePath, ignore + ignoreContent)
-    api.exitLog('Updated ' + ignorePath + ' : ' + ignoreContent)
+    api.exitLog(`Updated ${ignorePath} : ${ignoreContent}`)
 
     // cordova
     spawnSync('cordova', [
@@ -81,18 +82,18 @@ module.exports = (api, options) => {
       id,
       appName
     ])
-    api.exitLog('Executed \'cordova create ' + cordovaPath + ' ' + id + ' ' + appName + '\'')
+    api.exitLog(`Executed 'cordova create ${cordovaPath} ${id} ${appName}'`)
 
     // platforms
     const srcCordovaPath = api.resolve(cordovaPath)
     platforms.forEach(platform => {
-      console.log('\nAdding platform ' + platform)
+      info(`Adding platform ${platform}`)
       spawnSync('cordova', [
         'platform',
         'add',
         platform
       ], { cwd: srcCordovaPath })
-      api.exitLog('Executed \'cordova platform add ' + platform + '\'')
+      api.exitLog(`Executed 'cordova platform add ${platform}'`)
     })
   })
 }

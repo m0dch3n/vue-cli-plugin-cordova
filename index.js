@@ -23,20 +23,20 @@ module.exports = (api, options) => {
   }
 
   const getPlatformPath = platform => {
-    return api.resolve(cordovaPath + '/platforms/' + platform)
+    return api.resolve(`${cordovaPath}/platforms/${platform}`)
   }
 
   const getPlatformPathCordovaJS = platform => {
-    return api.resolve(cordovaPath + '/platforms/' + platform + '/platform_www/cordova.js')
+    return api.resolve(`${cordovaPath}/platforms/${platform}/platform_www/cordova.js`)
   }
 
   const getCordovaPathConfig = () => {
-    return api.resolve(cordovaPath + '/config.xml')
+    return api.resolve(`${cordovaPath}/config.xml`)
   }
 
   const cordovaRun = () => {
     // cordova run platform
-    info('executing "cordova run ' + platform + '"...')
+    info(`executing "cordova run ${platform}"...`)
     return spawnSync('cordova', [
       'run',
       platform
@@ -51,7 +51,7 @@ module.exports = (api, options) => {
   const cordovaBuild = (release = true) => {
     // cordova run platform
     const cordovaMode = release ? '--release' : '--debug'
-    info('executing "cordova build ' + platform + ' ' + cordovaMode + '"...')
+    info(`executing "cordova build ${platform} ${cordovaMode}"...`)
     return spawnSync('cordova', [
       'build',
       platform,
@@ -97,7 +97,7 @@ module.exports = (api, options) => {
     const regex = /\s+<content/
     const contentIndex = lines.findIndex(line => line.match(regex))
     if (contentIndex >= 0) {
-      lines[contentIndex] = '    <content src="' + url + '" />'
+      lines[contentIndex] = `    <content src="${url}" />`
       cordovaConfig = lines.reverse().join('\n')
     }
 
@@ -150,7 +150,7 @@ module.exports = (api, options) => {
       })
 
       // set content url to devServer
-      info('updating cordova config.xml content to ' + publicUrl)
+      info(`updating cordova config.xml content to ${publicUrl}`)
       cordovaContent(publicUrl)
 
       cordovaClean()
@@ -160,9 +160,9 @@ module.exports = (api, options) => {
       return server
     } else {
       if (availablePlatforms.length === 0) {
-        error('No platforms installed in \'' + srcCordovaPath + '\', please execute "cordova platform add ' + platform + '" in ' + srcCordovaPath)
+        error(`No platforms installed in '${srcCordovaPath}', please execute "cordova platform add ${platform}" in ${srcCordovaPath}`)
       } else {
-        error('Missing platform \'' + platform + '\', please execute "cordova platform add ' + platform + '" in ' + srcCordovaPath)
+        error(`Missing platform '${platform}', please execute "cordova platform add ${platform}" in ${srcCordovaPath}`)
       }
     }
   }
