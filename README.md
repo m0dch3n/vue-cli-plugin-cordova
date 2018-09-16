@@ -49,4 +49,13 @@ $ npm run cordova-build-browser # Build Browser
 * If you want to **debug** your build app, using **chrome devtools**, build your app with '**cordova build platform --debug**' and make sure /cordovaPath/www has your **latest build**
 
 ## License
+
 MIT
+
+## Credits
+
+Credits go to 
+* @dekimasoon https://github.com/dekimasoon/vue-cli-plugin-cordova
+* @quasarframework https://github.com/quasarframework/quasar-cli
+
+Because my approach for this plugin, was inspired by theirs!
