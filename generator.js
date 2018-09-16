@@ -97,8 +97,6 @@ module.exports = (api, options) => {
       ], { cwd: srcCordovaPath })
       api.exitLog(`Executed 'cordova platform add ${platform}'`)
     })
-
-    api.exitLog(`This npm package is now deprecated, because it was moved! Please use 'vue add cordova' instead`, 'warn')
   })
 }
 
