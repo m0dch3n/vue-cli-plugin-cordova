@@ -96,17 +96,24 @@ module.exports = (api, options) => {
     }
   }
 
-  const cordovaContent = url => {
+  const cordovaContent = (resetNavigation, url) => {
     const cordovaConfigPath = getCordovaPathConfig()
     let cordovaConfig = fs.readFileSync(cordovaConfigPath, 'utf-8')
-    const lines = cordovaConfig.split(/\r?\n/g).reverse()
-    const regex = /\s+<content/
-    const contentIndex = lines.findIndex(line => line.match(regex))
+    let lines = cordovaConfig.split(/\r?\n/g).reverse()
+    const regexContent = /\s+<content/
+    const contentIndex = lines.findIndex(line => line.match(regexContent))
+    const allowNavigation = `<allow-navigation href="${url}" />`
     if (contentIndex >= 0) {
-      lines[contentIndex] = `    <content src="${url}" />`
-      cordovaConfig = lines.reverse().join('\n')
+      if(resetNavigation) {
+        lines[contentIndex] = `    <content src="index.html" />`
+        lines = lines.filter(line => !line.includes(allowNavigation))
+      } else {
+        lines[contentIndex] = `    <content src="${url}" />`
+        lines.splice(contentIndex, 0, allowNavigation)
+      }
     }
 
+    cordovaConfig = lines.reverse().join('\n')
     fs.writeFileSync(cordovaConfigPath, cordovaConfig)
   }
 
@@ -151,13 +158,13 @@ module.exports = (api, options) => {
       const signals = ['SIGINT', 'SIGTERM']
       signals.forEach(signal => {
         process.on(signal, () => {
-          cordovaContent('index.html')
+          cordovaContent(true, publicUrl)
         })
       })
 
       // set content url to devServer
       info(`updating cordova config.xml content to ${publicUrl}`)
-      cordovaContent(publicUrl)
+      cordovaContent(false, publicUrl)
 
       cordovaClean()
 
@@ -174,8 +181,6 @@ module.exports = (api, options) => {
   }
 
   const runBuild = async args => {
-    // set index.html as cordova content
-    cordovaContent('index.html')
     // set build output folder
     args.dest = cordovaPath + '/www'
     // build
