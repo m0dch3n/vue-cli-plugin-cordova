@@ -25,6 +25,7 @@
     "@vue/cli-shared-utils": "^3.0.2",
     "address": "^1.0.3",
     "cordova-plugin-device": "^2.0.1",
+    "hasbin": "^1.2.3",
     "html-webpack-include-assets-plugin": "^1.0.4",
     "portfinder": "^1.0.13"
   },

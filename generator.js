@@ -1,4 +1,5 @@
 const fs = require('fs')
+const hasbin = require('hasbin')
 const defaults = require('./defaults')
 const { spawnSync } = require('child_process')
 const { info } = require('@vue/cli-shared-utils')
@@ -61,6 +62,12 @@ module.exports = (api, options) => {
   })
 
   api.onCreateComplete(() => {
+    // early return if cordova binary is not found
+    const hasCordova = hasbin.sync('cordova');
+    if (!hasCordova) {
+      api.exitLog(`Unable to find cordova binary, make sure it's installed.`, 'error')
+      return
+    }
     // .gitignore - not included in files on postProcessFiles
     const ignorePath = '.gitignore'
     const ignoreCompletePath = api.resolve(ignorePath)
