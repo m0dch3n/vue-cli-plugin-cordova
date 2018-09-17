@@ -28,8 +28,8 @@ module.exports = (api, options) => {
     return api.resolve(`${cordovaPath}/platforms/${platform}`)
   }
 
-  const getPlatformPathCordovaJS = platform => {
-    return api.resolve(`${cordovaPath}/platforms/${platform}/platform_www/cordova.js`)
+  const getPlatformPathWWW = platform => {
+    return api.resolve(`${cordovaPath}/platforms/${platform}/platform_www`)
   }
 
   const getCordovaPathConfig = () => {
@@ -80,15 +80,19 @@ module.exports = (api, options) => {
   }
 
   const cordovaJSMiddleware = () => {
-    const cordovaJSPath = getPlatformPathCordovaJS(platform)
-    const cordovaJS = fs.readFileSync(cordovaJSPath, 'utf-8')
     return (req, res, next) => {
-      if (req.url === '/cordova.js') {
-        res.setHeader('Content-Type', 'text/javascript')
-        res.send(cordovaJS)
-      } else {
-        next()
+      if (req.url !== '/') {
+        const filePath = getPlatformPathWWW(platform) + req.url
+        try {
+            if (fs.existsSync(filePath)) {
+                const fileContent = fs.readFileSync(filePath, 'utf-8')
+                res.send(fileContent)
+                return
+            }
+        } catch (err) {
+        }
       }
+      next()
     }
   }
 
