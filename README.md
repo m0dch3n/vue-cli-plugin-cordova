@@ -1,4 +1,4 @@
-# @m0dch3n/vue-cli-plugin-cordova
+# vue-cli-plugin-cordova
 [Vue CLI 3.x](https://github.com/vuejs/vue-cli) plugin for Apache Cordova.
 
 Integrate Cordova into Vue Cli App
@@ -6,7 +6,7 @@ Integrate Cordova into Vue Cli App
 ## How To
 ```sh
 $ npm install -g cordova # If cordova is not already installed
-$ vue add @m0dch3n/cordova
+$ vue add cordova
 $ npm run cordova-serve-android # Development Android
 $ npm run cordova-build-android # Build Android
 $ npm run cordova-serve-ios # Development IOS
@@ -27,7 +27,7 @@ $ npm run cordova-build-browser # Build Browser
 ### In development mode
 
 * Adding **cordova.js** to your **index.html**
-* Defining **process.env.CORDOVA_PLATFORM** to **android** or **ios**
+* Defining **process.env.CORDOVA_PLATFORM** to **android**, **ios** or **browser**
 * Starting the Dev Server
 * Pointing the cordova **config.xml** to Dev Server
 * Executing '**cordova clean**'
@@ -35,7 +35,7 @@ $ npm run cordova-build-browser # Build Browser
 
 ### In Production mode
 * Adding **cordova.js** to your **index.html**
-* Defining **process.env.CORDOVA_PLATFORM** to **android** or **ios**
+* Defining **process.env.CORDOVA_PLATFORM** to **android**, **ios** or **browser***
 * Pointing the cordova **config.xml** to **index.html**
 * Building the app, output to **/cordovaPath/www**
 * Executing '**cordova clean**'
