@@ -48,4 +48,4 @@ const prompts = [
   }
 ]
 
-module.exports = !hasCordova ? null : prompts
+module.exports = hasCordova ? prompts : null
