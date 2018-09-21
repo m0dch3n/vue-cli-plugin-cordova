@@ -2,13 +2,6 @@ const hasbin = require('hasbin')
 const defaults = require('./defaults')
 const hasCordova = hasbin.sync('cordova')
 
-const cordovaBinaryMissing = {
-  name: 'cordovaDeppendency',
-  type: 'string',
-  message: 'Unable to find cordova binary, make sure it\'s installed.',
-  default: 'Quit'
-}
-
 const prompts = [
   {
     name: 'cordovaPath',
@@ -55,4 +48,4 @@ const prompts = [
   }
 ]
 
-module.exports = !hasCordova ? cordovaBinaryMissing : prompts
+module.exports = !hasCordova ? null : prompts
