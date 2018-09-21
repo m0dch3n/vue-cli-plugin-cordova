@@ -1,9 +1,16 @@
 const fs = require('fs')
+const hasbin = require('hasbin')
 const defaults = require('./defaults')
 const { spawnSync } = require('child_process')
 const { info } = require('@vue/cli-shared-utils')
 
 module.exports = (api, options) => {
+  // early return if cordova binary is not found
+  const hasCordova = hasbin.sync('cordova')
+  if (!hasCordova) {
+    api.exitLog(`Unable to find cordova binary, make sure it's installed.`, 'error')
+    return
+  }
   // cordova options
   const cordovaPath = options.cordovaPath || defaults.cordovaPath
   const id = options.id || defaults.id
