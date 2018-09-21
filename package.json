@@ -4,7 +4,8 @@
   "description": "vue-cli 3.x plugin for Apache Cordova",
   "main": "index.js",
   "scripts": {
-    "release": "standard-version"
+    "release": "standard-version",
+    "lint": "eslint *.js"
   },
   "repository": {
     "type": "git",
