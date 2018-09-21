@@ -84,11 +84,11 @@ module.exports = (api, options) => {
       if (req.url !== '/') {
         const filePath = getPlatformPathWWW(platform) + req.url
         try {
-            if (fs.existsSync(filePath)) {
-                const fileContent = fs.readFileSync(filePath, 'utf-8')
-                res.send(fileContent)
-                return
-            }
+          if (fs.existsSync(filePath)) {
+            const fileContent = fs.readFileSync(filePath, 'utf-8')
+            res.send(fileContent)
+            return
+          }
         } catch (err) {
         }
       }
@@ -104,7 +104,7 @@ module.exports = (api, options) => {
     const contentIndex = lines.findIndex(line => line.match(regexContent))
     const allowNavigation = `<allow-navigation href="${url}" />`
     if (contentIndex >= 0) {
-      if(resetNavigation) {
+      if (resetNavigation) {
         lines[contentIndex] = `    <content src="index.html" />`
         lines = lines.filter(line => !line.includes(allowNavigation))
       } else {
