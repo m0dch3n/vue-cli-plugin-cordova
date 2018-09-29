@@ -11,6 +11,7 @@ module.exports = (api, options) => {
     api.exitLog(`Unable to find cordova binary, make sure it's installed.`, 'error')
     return
   }
+
   // cordova options
   const cordovaPath = options.cordovaPath || defaults.cordovaPath
   const id = options.id || defaults.id
