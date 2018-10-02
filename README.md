@@ -56,7 +56,7 @@ It is doing this by:
 * Adding **cordova.js** to your **index.html**
 * Defining **process.env.CORDOVA_PLATFORM** to **android**, **ios** or **browser***
 * Pointing the cordova **config.xml** to **index.html**
-* Building the app, output to **/cordovaPath/www**
+* Building the app, output to **/src-cordova/www**
 * Executing '**cordova clean**'
 * Executing '**cordova build platform  --release**'
 
@@ -64,8 +64,8 @@ It is doing this by:
 
 * For a production build, you need to **manually sign** the app, in order to be able to install it on your device, or publish it in the app store.  
 * You need to handle cordova's **"deviceready"** etc in your app
-* **Cordova Plugins** can be added under /cordovaPath by executing '**cordova plugin add PLUGIN**' 
-* If you want to **debug** your build app, using **chrome devtools**, build your app with '**cordova build platform --debug**' and make sure /cordovaPath/www has your **latest build**
+* **Cordova Plugins** can be added under /src-cordova by executing '**cordova plugin add PLUGIN**' 
+* If you want to **debug** your build app, using **chrome devtools**, build your app with '**cordova build platform --debug**' and make sure /src-cordova/www has your **latest build**
 
 ## License
 
