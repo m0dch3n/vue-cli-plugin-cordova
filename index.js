@@ -1,4 +1,4 @@
-const { spawnSync } = require('child_process')
+const spawn = require('cross-spawn')
 const { info, error } = require('@vue/cli-shared-utils')
 const fs = require('fs')
 const portfinder = require('portfinder')
@@ -39,7 +39,7 @@ module.exports = (api, options) => {
   const cordovaRun = () => {
     // cordova run platform
     info(`executing "cordova run ${platform}"...`)
-    return spawnSync('cordova', [
+    return spawn.sync('cordova', [
       'run',
       platform
     ], {
@@ -54,7 +54,7 @@ module.exports = (api, options) => {
     // cordova run platform
     const cordovaMode = release ? '--release' : '--debug'
     info(`executing "cordova build ${platform} ${cordovaMode}"...`)
-    return spawnSync('cordova', [
+    return spawn.sync('cordova', [
       'build',
       platform,
       cordovaMode
@@ -69,7 +69,7 @@ module.exports = (api, options) => {
   const cordovaClean = () => {
     // cordova clean
     info('executing "cordova clean"...')
-    return spawnSync('cordova', [
+    return spawn.sync('cordova', [
       'clean'
     ], {
       cwd: srcCordovaPath,

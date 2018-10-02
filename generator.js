@@ -1,7 +1,7 @@
 const fs = require('fs')
 const hasbin = require('hasbin')
 const defaults = require('./defaults')
-const { spawnSync } = require('child_process')
+const spawn = require('cross-spawn')
 const { info } = require('@vue/cli-shared-utils')
 
 module.exports = (api, options) => {
@@ -86,7 +86,7 @@ module.exports = (api, options) => {
     api.exitLog(`Updated ${ignorePath} : ${ignoreContent}`)
 
     // cordova
-    spawnSync('cordova', [
+    spawn.sync('cordova', [
       'create',
       cordovaPath,
       id,
@@ -98,7 +98,7 @@ module.exports = (api, options) => {
     const srcCordovaPath = api.resolve(cordovaPath)
     platforms.forEach(platform => {
       info(`Adding platform ${platform}`)
-      spawnSync('cordova', [
+      spawn.sync('cordova', [
         'platform',
         'add',
         platform
