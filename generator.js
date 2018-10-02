@@ -91,7 +91,11 @@ module.exports = (api, options) => {
       cordovaPath,
       id,
       appName
-    ])
+    ], {
+      env: process.env,
+      stdio: 'inherit', // pipe to console
+      encoding: 'utf-8'
+    })
     api.exitLog(`Executed 'cordova create ${cordovaPath} ${id} ${appName}'`)
 
     // platforms
@@ -102,8 +106,13 @@ module.exports = (api, options) => {
         'platform',
         'add',
         platform
-      ], { cwd: srcCordovaPath })
-      api.exitLog(`Executed 'cordova platform add ${platform}'`)
+      ], {
+        cwd: srcCordovaPath,
+        env: process.env,
+        stdio: 'inherit', // pipe to console
+        encoding: 'utf-8'
+      })
+      api.exitLog(`Executed 'cordova platform add ${platform}' in folder ${srcCordovaPath}`)
     })
   })
 }

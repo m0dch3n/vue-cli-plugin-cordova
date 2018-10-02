@@ -38,7 +38,7 @@ module.exports = (api, options) => {
 
   const cordovaRun = () => {
     // cordova run platform
-    info(`executing "cordova run ${platform}"...`)
+    info(`executing "cordova run ${platform}" in folder ${srcCordovaPath}`)
     return spawn.sync('cordova', [
       'run',
       platform
@@ -53,7 +53,7 @@ module.exports = (api, options) => {
   const cordovaBuild = (release = true) => {
     // cordova run platform
     const cordovaMode = release ? '--release' : '--debug'
-    info(`executing "cordova build ${platform} ${cordovaMode}"...`)
+    info(`executing "cordova build ${platform} ${cordovaMode}" in folder ${srcCordovaPath}`)
     return spawn.sync('cordova', [
       'build',
       platform,
@@ -68,7 +68,7 @@ module.exports = (api, options) => {
 
   const cordovaClean = () => {
     // cordova clean
-    info('executing "cordova clean"...')
+    info(`executing "cordova clean" in folder ${srcCordovaPath}`)
     return spawn.sync('cordova', [
       'clean'
     ], {
