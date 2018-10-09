@@ -7,22 +7,17 @@ const defaults = require('./defaults')
 const defaultServe = require('./default-serve')
 
 const defaultModes = {
-  'cordova-serve-android': 'cordova-serve-android',
-  'cordova-build-android': 'cordova-build-android',
-  'cordova-serve-ios': 'cordova-serve-ios',
-  'cordova-build-ios': 'cordova-build-ios',
-  'cordova-serve-browser': 'cordova-serve-browser',
-  'cordova-build-browser': 'cordova-build-browser'
+  'cordova-serve-android': 'development',
+  'cordova-build-android': 'production',
+  'cordova-serve-ios': 'development',
+  'cordova-build-ios': 'production',
+  'cordova-serve-browser': 'development',
+  'cordova-build-browser': 'production'
 }
 
 module.exports = (api, options) => {
-  const getPlatform = str => {
-    if (str) {
-      return str.substring(str.lastIndexOf('-') + 1, str.length)
-    } else {
-      return defaults.platforms[0]
-    }
-  }
+  const cordovaPath = options.pluginOptions.cordovaPath || defaults.cordovaPath
+  const srcCordovaPath = api.resolve(cordovaPath)
 
   const getPlatformPath = platform => {
     return api.resolve(`${cordovaPath}/platforms/${platform}`)
@@ -36,7 +31,7 @@ module.exports = (api, options) => {
     return api.resolve(`${cordovaPath}/config.xml`)
   }
 
-  const cordovaRun = () => {
+  const cordovaRun = platform => {
     // cordova run platform
     info(`executing "cordova run ${platform}" in folder ${srcCordovaPath}`)
     return spawn.sync('cordova', [
@@ -50,7 +45,7 @@ module.exports = (api, options) => {
     })
   }
 
-  const cordovaBuild = (release = true) => {
+  const cordovaBuild = (platform, release = true) => {
     // cordova run platform
     const cordovaMode = release ? '--release' : '--debug'
     info(`executing "cordova build ${platform} ${cordovaMode}" in folder ${srcCordovaPath}`)
@@ -79,7 +74,7 @@ module.exports = (api, options) => {
     })
   }
 
-  const cordovaJSMiddleware = () => {
+  const cordovaJSMiddleware = platform => {
     return (req, res, next) => {
       if (req.url !== '/') {
         const filePath = getPlatformPathWWW(platform) + req.url
@@ -117,8 +112,10 @@ module.exports = (api, options) => {
     fs.writeFileSync(cordovaConfigPath, cordovaConfig)
   }
 
-  const runServe = async args => {
+  const runServe = async (platform, args) => {
     const availablePlatforms = []
+    const platforms = defaults.platforms
+
     platforms.forEach(platform => {
       const platformPath = getPlatformPath(platform)
       if (fs.existsSync(platformPath)) {
@@ -127,6 +124,12 @@ module.exports = (api, options) => {
     })
 
     if (availablePlatforms.includes(platform)) {
+      // add cordova.js, define process.env.CORDOVA_PLATFORM
+      chainWebPack(platform)
+      // Add js middleware
+      configureDevServer(platform)
+
+      const projectDevServerOptions = options.devServer || {}
       // resolve server options
       const open = false // browser does not need to be opened
       const https = false // cordova webpage must be served via http
@@ -168,7 +171,7 @@ module.exports = (api, options) => {
 
       cordovaClean()
 
-      cordovaRun()
+      cordovaRun(platform)
 
       return server
     } else {
@@ -180,56 +183,28 @@ module.exports = (api, options) => {
     }
   }
 
-  const runBuild = async args => {
+  const runBuild = async (platform, args) => {
+    // add cordova.js, define process.env.CORDOVA_PLATFORM
+    chainWebPack(platform)
     // set build output folder
     args.dest = cordovaPath + '/www'
     // build
     await api.service.run('build', args)
     // cordova clean
     await cordovaClean()
-    // cordova build --release (if you want a build debug build, use cordovaBuild(false)
-    await cordovaBuild()
+    // cordova build --release (if you want a build debug build, use cordovaBuild(platform, false)
+    await cordovaBuild(platform)
   }
 
-  const projectDevServerOptions = options.devServer || {}
-  const cordovaPath = options.pluginOptions.cordovaPath || defaults.cordovaPath
-  const srcCordovaPath = api.resolve(cordovaPath)
-  const platforms = defaults.platforms
-  const platform = getPlatform(api.service.mode)
-
-  api.configureDevServer(app => {
-    if (defaultModes[api.service.mode]) {
+  const configureDevServer = platform => {
+    api.configureDevServer(app => {
       // /cordova.js should resolve to platform cordova.js
-      app.use(cordovaJSMiddleware())
-    }
-  })
+      app.use(cordovaJSMiddleware(platform))
+    })
+  }
 
-  api.registerCommand('cordova-serve-android', async args => {
-    return await runServe(args)
-  })
-
-  api.registerCommand('cordova-build-android', async args => {
-    return await runBuild(args)
-  })
-
-  api.registerCommand('cordova-serve-ios', async args => {
-    return await runServe(args)
-  })
-
-  api.registerCommand('cordova-build-ios', async args => {
-    return await runBuild(args)
-  })
-
-  api.registerCommand('cordova-serve-browser', async args => {
-    args.open = true
-    return await api.service.run('serve', args)
-  })
-  api.registerCommand('cordova-build-browser', async args => {
-    return await runBuild(args)
-  })
-
-  api.chainWebpack(webpackConfig => {
-    if (defaultModes[api.service.mode]) {
+  const chainWebPack = platform => {
+    api.chainWebpack(webpackConfig => {
       // add cordova.js to index.html
       webpackConfig.plugin('cordova')
                 .use(require('html-webpack-include-assets-plugin'), [{
@@ -253,7 +228,31 @@ module.exports = (api, options) => {
                     ...rest
                   }]
                 })
-    }
+    })
+  }
+
+  api.registerCommand('cordova-serve-android', async args => {
+    return await runServe('android', args)
+  })
+
+  api.registerCommand('cordova-build-android', async args => {
+    return await runBuild('android', args)
+  })
+
+  api.registerCommand('cordova-serve-ios', async args => {
+    return await runServe('ios', args)
+  })
+
+  api.registerCommand('cordova-build-ios', async args => {
+    return await runBuild('ios', args)
+  })
+
+  api.registerCommand('cordova-serve-browser', async args => {
+    args.open = true
+    return await api.service.run('serve', args)
+  })
+  api.registerCommand('cordova-build-browser', async args => {
+    return await runBuild('browser', args)
   })
 }
 
