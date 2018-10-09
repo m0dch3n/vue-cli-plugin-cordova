@@ -249,6 +249,9 @@ module.exports = (api, options) => {
 
   api.registerCommand('cordova-serve-browser', async args => {
     args.open = true
+    const platform = 'browser'
+    chainWebPack(platform)
+    configureDevServer(platform)
     return await api.service.run('serve', args)
   })
   api.registerCommand('cordova-build-browser', async args => {
