@@ -45,6 +45,19 @@ module.exports = (api, options) => {
     })
   }
 
+  const cordovaPrepare = () => {
+    // cordova run platform
+    info(`executing "cordova prepare in folder ${srcCordovaPath}`)
+    return spawn.sync('cordova', [
+      'prepare'
+    ], {
+      cwd: srcCordovaPath,
+      env: process.env,
+      stdio: 'inherit', // pipe to console
+      encoding: 'utf-8'
+    })
+  }
+
   const cordovaBuild = (platform, release = true) => {
     // cordova run platform
     const cordovaMode = release ? '--release' : '--debug'
@@ -196,6 +209,18 @@ module.exports = (api, options) => {
     await cordovaBuild(platform)
   }
 
+  const runPrepare = async (args) => {
+    // add cordova.js, define process.env.CORDOVA_PLATFORM
+    chainWebPack(null)
+    // set build output folder
+    args.dest = cordovaPath + '/www'
+    // build
+    await api.service.run('build', args)
+
+    // cordova prepare
+    await cordovaPrepare()
+  }
+
   const configureDevServer = platform => {
     api.configureDevServer(app => {
       // /cordova.js should resolve to platform cordova.js
@@ -214,20 +239,23 @@ module.exports = (api, options) => {
                 }])
 
       // process.env.CORDOVA_PLATFORM = platform
-      webpackConfig.plugin('define')
-                .tap(args => {
-                  const { 'process.env': env, ...rest } = args[0]
-                  return [{
-                    'process.env': Object.assign(
-                      {},
-                      env,
-                      {
-                        CORDOVA_PLATFORM: '\'' + platform + '\''
-                      }
-                    ),
-                    ...rest
-                  }]
-                })
+      if (platform !== null) {
+        webpackConfig.plugin('define')
+                  .tap(args => {
+                    const { 'process.env': env, ...rest } = args[0]
+                    return [{
+                      'process.env': Object.assign(
+                        {},
+                        env,
+                        {
+                          CORDOVA_PLATFORM: '\'' + platform + '\''
+                        }
+                      ),
+                      ...rest
+                    }]
+                  })
+      }
+
     })
   }
 
@@ -241,6 +269,10 @@ module.exports = (api, options) => {
 
   api.registerCommand('cordova-serve-ios', async args => {
     return await runServe('ios', args)
+  })
+
+  api.registerCommand('cordova-prepare', async args => {
+    return await runPrepare(args)
   })
 
   api.registerCommand('cordova-build-ios', async args => {
