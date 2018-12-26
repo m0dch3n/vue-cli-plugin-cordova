@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+
+<a name="2.0.9"></a>
+## [2.0.9](https://github.com/m0dch3n/vue-cli-plugin-cordova/compare/v2.0.8...v2.0.9) (2018-12-26)
+
+
+### Feature
+
+* add feature cordova prepare ([8e07ccc](https://github.com/m0dch3n/vue-cli-plugin-cordova/commit/8e07ccc73d872c34749a806665889a812da7ec58))
+
+
 <a name="2.0.8"></a>
 ## [2.0.8](https://github.com/m0dch3n/vue-cli-plugin-cordova/compare/v2.0.7...v2.0.8) (2018-10-09)
 
