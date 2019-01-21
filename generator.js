@@ -26,9 +26,10 @@ module.exports = (api, options) => {
       'cordova-build-ios': 'vue-cli-service cordova-build-ios',
       'cordova-serve-browser': 'vue-cli-service cordova-serve-browser',
       'cordova-build-browser': 'vue-cli-service cordova-build-browser'
+      'cordova-prepare': 'vue-cli-service cordova-prepare'
     },
     vue: {
-      baseUrl: '',
+      publicPath: '',
       pluginOptions: {
         cordovaPath
       }
@@ -116,4 +117,3 @@ module.exports = (api, options) => {
     })
   })
 }
-
