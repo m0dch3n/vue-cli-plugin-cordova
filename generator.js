@@ -76,7 +76,7 @@ module.exports = (api, options) => {
       ? fs.readFileSync(ignoreCompletePath, 'utf-8')
       : ''
     var ignoreContent = '\n# Cordova\n'
-    const folders = ['www', 'platforms', 'plugins']
+    const folders = ['platforms', 'plugins']
     folders.forEach(folder => {
       ignoreContent += `/${cordovaPath}/${folder}\n`
     })
@@ -97,6 +97,10 @@ module.exports = (api, options) => {
       encoding: 'utf-8'
     })
     api.exitLog(`Executed 'cordova create ${cordovaPath} ${id} ${appName}'`)
+
+    const wwwIgnorePath = api.resolve(`${cordovaPath}/www/.gitignore`)
+    api.exitLog(`Creating file: ${wwwIgnorePath}`)
+    fs.writeFileSync(wwwIgnorePath, '*\n*/\n!.gitignore')
 
     // platforms
     const srcCordovaPath = api.resolve(cordovaPath)
