@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.1.0"></a>
+# [2.1.0](https://github.com/m0dch3n/vue-cli-plugin-cordova/compare/v2.0.9...v2.1.0) (2019-01-31)
+
+
+### Features
+
+* Add support for macOS ([858fc19](https://github.com/m0dch3n/vue-cli-plugin-cordova/commit/858fc19))
+
+
+
 <a name="2.0.9"></a>
 ## [2.0.9](https://github.com/m0dch3n/vue-cli-plugin-cordova/compare/v2.0.8...v2.0.9) (2019-01-02)
 
