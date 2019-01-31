@@ -289,8 +289,6 @@ module.exports = (api, options) => {
     return await runPrepare(args)
   })
 
-  
-
   api.registerCommand('cordova-serve-browser', async args => {
     args.open = true
     const platform = 'browser'
