@@ -12,7 +12,9 @@ const defaultModes = {
   'cordova-serve-ios': 'development',
   'cordova-build-ios': 'production',
   'cordova-serve-browser': 'development',
-  'cordova-build-browser': 'production'
+  'cordova-build-browser': 'production',
+  'cordova-serve-osx': 'development',
+  'cordova-build-osx': 'production'
 }
 
 module.exports = (api, options) => {
@@ -271,13 +273,23 @@ module.exports = (api, options) => {
     return await runServe('ios', args)
   })
 
+  api.registerCommand('cordova-build-ios', async args => {
+    return await runBuild('ios', args)
+  })
+
+  api.registerCommand('cordova-serve-osx', async args => {
+    return await runServe('osx', args)
+  })
+
+  api.registerCommand('cordova-build-osx', async args => {
+    return await runBuild('osx', args)
+  })
+
   api.registerCommand('cordova-prepare', async args => {
     return await runPrepare(args)
   })
 
-  api.registerCommand('cordova-build-ios', async args => {
-    return await runBuild('ios', args)
-  })
+  
 
   api.registerCommand('cordova-serve-browser', async args => {
     args.open = true
