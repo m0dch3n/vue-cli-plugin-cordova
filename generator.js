@@ -25,9 +25,9 @@ module.exports = (api, options) => {
       'cordova-serve-ios': 'vue-cli-service cordova-serve-ios',
       'cordova-build-ios': 'vue-cli-service cordova-build-ios',
       'cordova-serve-browser': 'vue-cli-service cordova-serve-browser',
-      'cordova-build-browser': 'vue-cli-service cordova-build-browser'
+      'cordova-build-browser': 'vue-cli-service cordova-build-browser',
       'cordova-serve-osx': 'vue-cli-service cordova-serve-osx',
-      'cordova-build-osx': 'vue-cli-service cordova-build-osx'
+      'cordova-build-osx': 'vue-cli-service cordova-build-osx',
       'cordova-prepare': 'vue-cli-service cordova-prepare'
     },
     vue: {
