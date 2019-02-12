@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.1.2"></a>
+## [2.1.2](https://github.com/m0dch3n/vue-cli-plugin-cordova/compare/v2.1.1...v2.1.2) (2019-02-12)
+
+
+### Bug Fixes
+
+* lodash 4.17.10 security vulnerability ([bb12338](https://github.com/m0dch3n/vue-cli-plugin-cordova/commit/bb12338))
+
+
+
 <a name="2.1.1"></a>
 ## [2.1.1](https://github.com/m0dch3n/vue-cli-plugin-cordova/compare/v2.1.0...v2.1.1) (2019-02-01)
 
