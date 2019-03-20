@@ -147,7 +147,7 @@ module.exports = (api, options) => {
       const projectDevServerOptions = options.devServer || {}
       // resolve server options
       const open = false // browser does not need to be opened
-      const https = false // cordova webpage must be served via http
+      const https = options.devServer.https || false // check devServer.options for user defined https setting
       const protocol = https ? 'https' : 'http'
       const host = args.host || process.env.HOST || projectDevServerOptions.host || defaultServe.host
       let port = args.port || process.env.PORT || projectDevServerOptions.port || defaultServe.port
