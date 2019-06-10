@@ -17,6 +17,13 @@ module.exports = (api, options) => {
   const id = options.id || defaults.id
   const appName = options.appName || defaults.appName
   const platforms = options.platforms || defaults.platforms
+  const cordovaConfigPaths = {}
+  defaults.platforms.forEach((platform) => {
+    const platformPath = defaults.cordovaConfigPaths[platform]
+    if (platformPath) {
+      cordovaConfigPaths[platform] = platformPath.replace(/VueExampleAppName/, appName)
+    }
+  })
 
   api.extendPackage({
     scripts: {
@@ -33,7 +40,8 @@ module.exports = (api, options) => {
     vue: {
       publicPath: '',
       pluginOptions: {
-        cordovaPath
+        cordovaPath,
+        cordovaConfigPaths
       }
     }
   })
@@ -87,6 +95,23 @@ module.exports = (api, options) => {
 
     fs.writeFileSync(ignoreCompletePath, ignore + ignoreContent)
     api.exitLog(`Updated ${ignorePath} : ${ignoreContent}`)
+
+    // config.xml - add hook
+    const configPath = `${cordovaPath}/config.xml`
+    const configCompletePath = api.resolve(configPath)
+    let cordovaConfig = fs.existsSync(configCompletePath)
+      ? fs.readFileSync(configCompletePath, 'utf-8')
+      : ''
+    const lines = cordovaConfig.split(/\r?\n/g)
+    const regexContent = /\s+<content/
+    const contentIndex = lines.findIndex(line => line.match(regexContent))
+    const hook = '    <hook type="after_prepare" src="node_modules/vue-cli-plugin-cordova/serve-config-hook.js" />'
+    if (contentIndex >= 0) {
+      lines.splice(contentIndex, 0, hook)
+      cordovaConfig = lines.join('\n')
+      fs.writeFileSync(configCompletePath, cordovaConfig)
+      api.exitLog(`Updated ${configPath}`)
+    }
 
     // cordova
     spawn.sync('cordova', [

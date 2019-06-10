@@ -32,6 +32,7 @@ During installation, the plugin is setting some important variables, modifying t
 * Setting cordovaPath in **vue.config.js**
 * Checking if **router** is available and modify router mode to **'hash'** if process.env.CORDOVA_PLATFORM is set
 * Adding ignore paths for cordova in **.gitignore**
+* Adding cordova before_prepare hook in  **config.xml**
 * Executing '**cordova create cordovaPath id appName**' (cordovaPath, id and appName will be **prompted**)
 * Executing '**cordova platform add platform**' (platform will be prompted)
 
@@ -44,9 +45,9 @@ It is doing this by:
 * Adding **cordova.js** to your **index.html**
 * Defining **process.env.CORDOVA_PLATFORM** to **android**, **ios** or **browser**
 * Starting the Dev Server
-* Pointing the cordova **config.xml** to Dev Server
 * Executing '**cordova clean**'
 * Executing '**cordova run platform**'
+* Pointing the cordova **config.xml** to Dev Server in hook
 
 ### In Production mode
 
@@ -56,7 +57,6 @@ It is doing this by:
 
 * Adding **cordova.js** to your **index.html**
 * Defining **process.env.CORDOVA_PLATFORM** to **android**, **ios** or **browser***
-* Pointing the cordova **config.xml** to **index.html**
 * Building the app, output to **/src-cordova/www**
 * Executing '**cordova clean**'
 * Executing '**cordova build platform  --release**'
