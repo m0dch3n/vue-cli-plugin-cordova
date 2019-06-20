@@ -29,8 +29,25 @@ module.exports = (api, options) => {
     return api.resolve(`${cordovaPath}/platforms/${platform}/platform_www`)
   }
 
-  const getCordovaPathConfig = () => {
-    return api.resolve(`${cordovaPath}/config.xml`)
+  const getCordovaPathConfig = platform => {
+    let cordovaConfigPathToUpdate
+    if (platform === 'android') {
+      cordovaConfigPathToUpdate = 'app/src/main/res/xml/config.xml'
+    } else if (platform === 'ios' || platform === 'osx') {
+      const cordovaConfigPath = api.resolve(`${cordovaPath}/config.xml`)
+      const cordovaConfig = fs.readFileSync(cordovaConfigPath, 'utf-8')
+      const regexAppName = /\s+<name>(.*)<\/name>/
+      const appNameMatch = cordovaConfig.match(regexAppName)
+      if(appNameMatch.length >= 2) {
+        const appName = appNameMatch[1]
+        cordovaConfigPathToUpdate = `${appName}/config.xml`
+      } else {
+        error('Unable to detect AppName!')
+      }
+    } else {
+      cordovaConfigPathToUpdate = 'config.xml'
+    }
+    return api.resolve(`${cordovaPath}/platforms/${platform}/${cordovaConfigPathToUpdate}`)
   }
 
   const cordovaRun = platform => {
@@ -106,27 +123,6 @@ module.exports = (api, options) => {
     }
   }
 
-  const cordovaContent = (resetNavigation, url) => {
-    const cordovaConfigPath = getCordovaPathConfig()
-    let cordovaConfig = fs.readFileSync(cordovaConfigPath, 'utf-8')
-    let lines = cordovaConfig.split(/\r?\n/g).reverse()
-    const regexContent = /\s+<content/
-    const contentIndex = lines.findIndex(line => line.match(regexContent))
-    const allowNavigation = `<allow-navigation href="${url}" />`
-    if (contentIndex >= 0) {
-      if (resetNavigation) {
-        lines[contentIndex] = `    <content src="index.html" />`
-        lines = lines.filter(line => !line.includes(allowNavigation))
-      } else {
-        lines[contentIndex] = `    <content src="${url}" />`
-        lines.splice(contentIndex, 0, allowNavigation)
-      }
-    }
-
-    cordovaConfig = lines.reverse().join('\n')
-    fs.writeFileSync(cordovaConfigPath, cordovaConfig)
-  }
-
   const runServe = async (platform, args) => {
     const availablePlatforms = []
     const platforms = defaults.platforms
@@ -172,17 +168,9 @@ module.exports = (api, options) => {
       // npm run serve
       const server = await api.service.run('serve', serveArgs)
 
-      // on kill, reset cordova config.xml
-      const signals = ['SIGINT', 'SIGTERM']
-      signals.forEach(signal => {
-        process.on(signal, () => {
-          cordovaContent(true, publicUrl)
-        })
-      })
-
       // set content url to devServer
-      info(`updating cordova config.xml content to ${publicUrl}`)
-      cordovaContent(false, publicUrl)
+      process.env.CORDOVA_WEBVIEW_SRC = publicUrl
+      process.env.CORDOVA_PREPARE_CONFIG = getCordovaPathConfig(platform)
 
       cordovaClean()
 

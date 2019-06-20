@@ -121,5 +121,24 @@ module.exports = (api, options) => {
       })
       api.exitLog(`Executed 'cordova platform add ${platform}' in folder ${srcCordovaPath}`)
     })
+
+    // config.xml - add hook
+    const configPath = `${cordovaPath}/config.xml`
+    const configCompletePath = api.resolve(configPath)
+    let cordovaConfig = fs.existsSync(configCompletePath)
+        ? fs.readFileSync(configCompletePath, 'utf-8')
+        : ''
+    const lines = cordovaConfig.split(/\r?\n/g)
+    const regexContent = /\s+<content/
+    const contentIndex = lines.findIndex(line => line.match(regexContent))
+    if (contentIndex >= 0) {
+      lines.splice(contentIndex, 0,
+          '    <!-- this hook will point your config.xml to the DevServer on Serve -->',
+                 '    <hook type="after_prepare" src="../node_modules/vue-cli-plugin-cordova/serve-config-hook.js" />'
+      )
+      cordovaConfig = lines.join('\n')
+      fs.writeFileSync(configCompletePath, cordovaConfig)
+      api.exitLog(`Updated ${configPath}`)
+    }
   })
 }
