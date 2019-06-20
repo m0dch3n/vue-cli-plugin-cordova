@@ -15,10 +15,10 @@ const defaultModes = {
   'cordova-build-browser': 'production',
   'cordova-serve-osx': 'development',
   'cordova-build-osx': 'production',
-  'cordova-cordova-build-only-www-ios': 'production',
-  'cordova-cordova-build-only-www-android': 'production',
-  'cordova-cordova-build-only-www-browser': 'production',
-  'cordova-cordova-build-only-www-osx': 'production',
+  'cordova-build-only-www-ios': 'production',
+  'cordova-build-only-www-android': 'production',
+  'cordova-build-only-www-browser': 'production',
+  'cordova-build-only-www-osx': 'production',
   'cordova-prepare': 'production'
 }
 
