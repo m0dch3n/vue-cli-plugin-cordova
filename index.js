@@ -14,7 +14,12 @@ const defaultModes = {
   'cordova-serve-browser': 'development',
   'cordova-build-browser': 'production',
   'cordova-serve-osx': 'development',
-  'cordova-build-osx': 'production'
+  'cordova-build-osx': 'production',
+  'cordova-cordova-build-only-www-ios': 'production',
+  'cordova-cordova-build-only-www-android': 'production',
+  'cordova-cordova-build-only-www-browser': 'production',
+  'cordova-cordova-build-only-www-osx': 'production',
+  'cordova-prepare': 'production'
 }
 
 module.exports = (api, options) => {
@@ -187,16 +192,8 @@ module.exports = (api, options) => {
   }
 
   const runBuild = async (platform, args) => {
-    // add cordova.js, define process.env.CORDOVA_PLATFORM
-    chainWebPack(platform)
-    // set build output folder
-    args.dest = cordovaPath + '/www'
-    // build
-    await api.service.run('build', args)
-
-    // add www/.gitignore again (because build will delete it)
-    addGitIgnoreToWWW()
-
+    // build WWW
+    await runWWWBuild(platform, args)
     // cordova clean
     await cordovaClean()
     // cordova build --release (if you want a build debug build, use cordovaBuild(platform, false)
@@ -209,18 +206,23 @@ module.exports = (api, options) => {
   }
 
   const runPrepare = async (args) => {
+    // build WWW
+    await runWWWBuild(null, args)
+    // add www/.gitignore again (because build will delete it)
+    addGitIgnoreToWWW()
+    // cordova prepare
+    await cordovaPrepare()
+  }
+
+  const runWWWBuild = async (platform, args) => {
     // add cordova.js, define process.env.CORDOVA_PLATFORM
-    chainWebPack(null)
+    chainWebPack(platform)
     // set build output folder
     args.dest = cordovaPath + '/www'
     // build
     await api.service.run('build', args)
-
     // add www/.gitignore again (because build will delete it)
     addGitIgnoreToWWW()
-
-    // cordova prepare
-    await cordovaPrepare()
   }
 
   const configureDevServer = platform => {
@@ -282,6 +284,22 @@ module.exports = (api, options) => {
 
   api.registerCommand('cordova-build-osx', async args => {
     return await runBuild('osx', args)
+  })
+
+  api.registerCommand('cordova-build-only-www-ios', async args => {
+    return await runWWWBuild('ios', args)
+  })
+
+  api.registerCommand('cordova-build-only-www-android', async args => {
+    return await runWWWBuild('android', args)
+  })
+
+  api.registerCommand('cordova-build-only-www-browser', async args => {
+    return await runWWWBuild('browser', args)
+  })
+
+  api.registerCommand('cordova-build-only-www-osx', async args => {
+    return await runWWWBuild('osx', args)
   })
 
   api.registerCommand('cordova-prepare', async args => {

@@ -22,12 +22,16 @@ module.exports = (api, options) => {
     scripts: {
       'cordova-serve-android': 'CORDOVA_PLATFORM=android vue-cli-service cordova-serve-android',
       'cordova-build-android': 'CORDOVA_PLATFORM=android vue-cli-service cordova-build-android',
+      'cordova-build-only-www-android': 'CORDOVA_PLATFORM=android vue-cli-service cordova-build-only-www-android',
       'cordova-serve-ios': 'CORDOVA_PLATFORM=ios vue-cli-service cordova-serve-ios',
       'cordova-build-ios': 'CORDOVA_PLATFORM=ios vue-cli-service cordova-build-ios',
+      'cordova-build-only-www-ios': 'CORDOVA_PLATFORM=ios vue-cli-service cordova-build-only-www-ios',
       'cordova-serve-browser': 'CORDOVA_PLATFORM=browser vue-cli-service cordova-serve-browser',
       'cordova-build-browser': 'CORDOVA_PLATFORM=browser vue-cli-service cordova-build-browser',
+      'cordova-build-only-www-browser': 'CORDOVA_PLATFORM=browser vue-cli-service cordova-build-only-www-browser',
       'cordova-serve-osx': 'CORDOVA_PLATFORM=osx vue-cli-service cordova-serve-osx',
       'cordova-build-osx': 'CORDOVA_PLATFORM=osx vue-cli-service cordova-build-osx',
+      'cordova-build-only-www-osx': 'CORDOVA_PLATFORM=osx vue-cli-service cordova-build-only-www-osx',
       'cordova-prepare': 'vue-cli-service cordova-prepare'
     },
     vue: {
