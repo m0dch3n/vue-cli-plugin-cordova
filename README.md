@@ -23,6 +23,8 @@ $ npm run cordova-prepare # prepare for build
 
 * You need some experience with Cordova, to solve many issues, like having the right Java JDK, Android SDK, XTools, Signing an App, Publishing an App etc. If you encounter issues related to Cordova etc, please don't post them this issue tracker.
 
+* If you are upgrading from an older release, please **<hook type="after_prepare" src="../node_modules/vue-cli-plugin-cordova/serve-config-hook.js" />** to your config.xml
+
 ## What is the plugin doing ?
 ### During installation
 
