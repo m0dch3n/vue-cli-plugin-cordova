@@ -20,14 +20,14 @@ module.exports = (api, options) => {
 
   api.extendPackage({
     scripts: {
-      'cordova-serve-android': 'vue-cli-service cordova-serve-android',
-      'cordova-build-android': 'vue-cli-service cordova-build-android',
-      'cordova-serve-ios': 'vue-cli-service cordova-serve-ios',
-      'cordova-build-ios': 'vue-cli-service cordova-build-ios',
-      'cordova-serve-browser': 'vue-cli-service cordova-serve-browser',
-      'cordova-build-browser': 'vue-cli-service cordova-build-browser',
-      'cordova-serve-osx': 'vue-cli-service cordova-serve-osx',
-      'cordova-build-osx': 'vue-cli-service cordova-build-osx',
+      'cordova-serve-android': 'CORDOVA_PLATFORM=android vue-cli-service cordova-serve-android',
+      'cordova-build-android': 'CORDOVA_PLATFORM=android vue-cli-service cordova-build-android',
+      'cordova-serve-ios': 'CORDOVA_PLATFORM=ios vue-cli-service cordova-serve-ios',
+      'cordova-build-ios': 'CORDOVA_PLATFORM=ios vue-cli-service cordova-build-ios',
+      'cordova-serve-browser': 'CORDOVA_PLATFORM=browser vue-cli-service cordova-serve-browser',
+      'cordova-build-browser': 'CORDOVA_PLATFORM=browser vue-cli-service cordova-build-browser',
+      'cordova-serve-osx': 'CORDOVA_PLATFORM=osx vue-cli-service cordova-serve-osx',
+      'cordova-build-osx': 'CORDOVA_PLATFORM=osx vue-cli-service cordova-build-osx',
       'cordova-prepare': 'vue-cli-service cordova-prepare'
     },
     vue: {
