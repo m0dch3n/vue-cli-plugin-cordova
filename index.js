@@ -193,10 +193,19 @@ module.exports = (api, options) => {
     args.dest = cordovaPath + '/www'
     // build
     await api.service.run('build', args)
+
+    // add www/.gitignore again (because build will delete it)
+    addGitIgnoreToWWW()
+
     // cordova clean
     await cordovaClean()
     // cordova build --release (if you want a build debug build, use cordovaBuild(platform, false)
     await cordovaBuild(platform)
+  }
+
+  const addGitIgnoreToWWW = () => {
+    const wwwIgnorePath = api.resolve(`${cordovaPath}/www/.gitignore`)
+    fs.writeFileSync(wwwIgnorePath, defaults.gitIgnoreContent)
   }
 
   const runPrepare = async (args) => {
@@ -206,6 +215,9 @@ module.exports = (api, options) => {
     args.dest = cordovaPath + '/www'
     // build
     await api.service.run('build', args)
+
+    // add www/.gitignore again (because build will delete it)
+    addGitIgnoreToWWW()
 
     // cordova prepare
     await cordovaPrepare()

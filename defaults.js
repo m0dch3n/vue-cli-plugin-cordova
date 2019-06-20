@@ -3,5 +3,6 @@ module.exports = {
   id: 'com.vue.example.app',
   appName: 'VueExampleAppName',
   platforms: ['android', 'ios', 'browser', 'osx'],
-  routerMode: 'hash'
+  routerMode: 'hash',
+  gitIgnoreContent: '*\n*/\n!.gitignore'
 }

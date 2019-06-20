@@ -103,7 +103,7 @@ module.exports = (api, options) => {
 
     const wwwIgnorePath = api.resolve(`${cordovaPath}/www/.gitignore`)
     api.exitLog(`Creating file: ${wwwIgnorePath}`)
-    fs.writeFileSync(wwwIgnorePath, '*\n*/\n!.gitignore')
+    fs.writeFileSync(wwwIgnorePath, defaults.gitIgnoreContent)
 
     // platforms
     const srcCordovaPath = api.resolve(cordovaPath)
