@@ -38,7 +38,7 @@ module.exports = (api, options) => {
       const cordovaConfig = fs.readFileSync(cordovaConfigPath, 'utf-8')
       const regexAppName = /\s+<name>(.*)<\/name>/
       const appNameMatch = cordovaConfig.match(regexAppName)
-      if(appNameMatch.length >= 2) {
+      if (appNameMatch.length >= 2) {
         const appName = appNameMatch[1]
         cordovaConfigPathToUpdate = `${appName}/config.xml`
       } else {
@@ -222,30 +222,29 @@ module.exports = (api, options) => {
     api.chainWebpack(webpackConfig => {
       // add cordova.js to index.html
       webpackConfig.plugin('cordova')
-                .use(require('html-webpack-include-assets-plugin'), [{
-                  assets: 'cordova.js',
-                  append: false,
-                  publicPath: false
-                }])
+        .use(require('html-webpack-include-assets-plugin'), [{
+          assets: 'cordova.js',
+          append: false,
+          publicPath: false
+        }])
 
       // process.env.CORDOVA_PLATFORM = platform
       if (platform !== null) {
         webpackConfig.plugin('define')
-                  .tap(args => {
-                    const { 'process.env': env, ...rest } = args[0]
-                    return [{
-                      'process.env': Object.assign(
-                        {},
-                        env,
-                        {
-                          CORDOVA_PLATFORM: '\'' + platform + '\''
-                        }
-                      ),
-                      ...rest
-                    }]
-                  })
+          .tap(args => {
+            const { 'process.env': env, ...rest } = args[0]
+            return [{
+              'process.env': Object.assign(
+                {},
+                env,
+                {
+                  CORDOVA_PLATFORM: '\'' + platform + '\''
+                }
+              ),
+              ...rest
+            }]
+          })
       }
-
     })
   }
 

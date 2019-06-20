@@ -9,7 +9,7 @@ if (!url || !cordovaConfigPath) {
 info(`updating ${cordovaConfigPath} content to ${url}`)
 
 let cordovaConfig = fs.readFileSync(cordovaConfigPath, 'utf-8')
-let lines = cordovaConfig.split(/\r?\n/g).reverse()
+const lines = cordovaConfig.split(/\r?\n/g).reverse()
 const regexContent = /\s+<content/
 const contentIndex = lines.findIndex(line => line.match(regexContent))
 const allowNavigation = `    <allow-navigation href="${url}" />`
