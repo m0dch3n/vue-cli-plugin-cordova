@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/m0dch3n/vue-cli-plugin-cordova/compare/v2.1.4...v2.2.0) (2019-06-20)
+
+
+### Features
+
+* Instead of updating the config.xml, a cordova hook is now used. If you are upgrading, please add <hook type="after_prepare" src="../node_modules/vue-cli-plugin-cordova/serve-config-hook.js" /> to your config.xml ([c7a969a](https://github.com/m0dch3n/vue-cli-plugin-cordova/commit/c7a969a))
+
+
+
 ### [2.1.4](https://github.com/m0dch3n/vue-cli-plugin-cordova/compare/v2.1.3...v2.1.4) (2019-06-20)
 
 
