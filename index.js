@@ -20,7 +20,6 @@ const defaultModes = {
 module.exports = (api, options) => {
   const cordovaPath = options.pluginOptions.cordovaPath || defaults.cordovaPath
   const srcCordovaPath = api.resolve(cordovaPath)
-  const cordovaConfigPaths = { ...defaults.cordovaConfigPaths, ...options.pluginOptions.cordovaConfigPaths }
 
   const getPlatformPath = platform => {
     return api.resolve(`${cordovaPath}/platforms/${platform}`)
@@ -31,7 +30,24 @@ module.exports = (api, options) => {
   }
 
   const getCordovaPathConfig = platform => {
-    return api.resolve(`${cordovaPath}/platforms/${platform}/${cordovaConfigPaths[platform]}`)
+    let cordovaConfigPathToUpdate
+    if (platform === 'android') {
+      cordovaConfigPathToUpdate = 'app/src/main/res/xml/config.xml'
+    } else if (platform === 'ios' || platform === 'osx') {
+      const cordovaConfigPath = api.resolve(`${cordovaPath}/config.xml`)
+      const cordovaConfig = fs.readFileSync(cordovaConfigPath, 'utf-8')
+      const regexAppName = /\s+<name>(.*)<\/name>/
+      const appNameMatch = cordovaConfig.match(regexAppName)
+      if(appNameMatch.length >= 2) {
+        const appName = appNameMatch[1]
+        cordovaConfigPathToUpdate = `${appName}/config.xml`
+      } else {
+        error('Unable to detect AppName!')
+      }
+    } else {
+      cordovaConfigPathToUpdate = 'config.xml'
+    }
+    return api.resolve(`${cordovaPath}/platforms/${platform}/${cordovaConfigPathToUpdate}`)
   }
 
   const cordovaRun = platform => {

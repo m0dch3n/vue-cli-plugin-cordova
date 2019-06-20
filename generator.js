@@ -17,13 +17,6 @@ module.exports = (api, options) => {
   const id = options.id || defaults.id
   const appName = options.appName || defaults.appName
   const platforms = options.platforms || defaults.platforms
-  const cordovaConfigPaths = {}
-  defaults.platforms.forEach((platform) => {
-    const platformPath = defaults.cordovaConfigPaths[platform]
-    if (platformPath) {
-      cordovaConfigPaths[platform] = platformPath.replace(/VueExampleAppName/, appName)
-    }
-  })
 
   api.extendPackage({
     scripts: {
@@ -40,8 +33,7 @@ module.exports = (api, options) => {
     vue: {
       publicPath: '',
       pluginOptions: {
-        cordovaPath,
-        cordovaConfigPaths
+        cordovaPath
       }
     }
   })

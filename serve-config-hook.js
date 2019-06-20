@@ -6,7 +6,7 @@ const cordovaConfigPath = process.env.CORDOVA_PREPARE_CONFIG
 if (!url || !cordovaConfigPath) {
   return
 }
-info(`updating cordova config.xml content to ${url}`)
+info(`updating ${cordovaConfigPath} content to ${url}`)
 
 let cordovaConfig = fs.readFileSync(cordovaConfigPath, 'utf-8')
 let lines = cordovaConfig.split(/\r?\n/g).reverse()
