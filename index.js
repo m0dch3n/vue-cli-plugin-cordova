@@ -148,7 +148,7 @@ module.exports = (api, options) => {
       const projectDevServerOptions = options.devServer || {}
       // resolve server options
       const open = false // browser does not need to be opened
-      const https = options.devServer.https || false // check devServer.options for user defined https setting
+      const https = options.devServer.https || true // check devServer.options for user defined https setting
       const protocol = https ? 'https' : 'http'
       const host = args.host || process.env.HOST || projectDevServerOptions.host || defaultServe.host
       let port = args.port || process.env.PORT || projectDevServerOptions.port || defaultServe.port
