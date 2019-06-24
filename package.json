@@ -1,6 +1,6 @@
 {
   "name": "vue-cli-plugin-cordova",
-  "version": "2.3.2",
+  "version": "2.3.3",
   "description": "vue-cli 3.x plugin for Apache Cordova",
   "main": "index.js",
   "scripts": {
