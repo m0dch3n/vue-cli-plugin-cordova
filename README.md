@@ -14,7 +14,7 @@ $ npm install -g cordova # If cordova is not already installed
 
 **Add the plugin to your vue app.**
 ```sh
-$ vue add cordova # 
+$ vue add cordova
 ```
 
 ## Usage
