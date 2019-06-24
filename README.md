@@ -67,8 +67,8 @@ During installation, the plugin is setting some important variables, modifying t
 * Setting cordovaPath in **vue.config.js**
 * Checking if **router** is available and modify router mode to **'hash'** if process.env.CORDOVA_PLATFORM is set
 * Adding ignore paths for cordova in **.gitignore**
-* Adding cordova before_prepare hook in  **config.xml**
 * Executing '**cordova create cordovaPath id appName**' (cordovaPath, id and appName will be **prompted**)
+* Adding cordova before_prepare hook in  **config.xml**
 * Executing '**cordova platform add platform**' (platform will be prompted)
 
 ### In development mode
