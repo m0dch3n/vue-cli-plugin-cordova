@@ -56,7 +56,7 @@ $ npm run cordova-build-only-www-browser # Build only files to src-cordova
 
 * If you are upgrading from an older release, please add `<hook type="after_prepare" src="../node_modules/vue-cli-plugin-cordova/serve-config-hook.js" />` to your config.xml
 
-* The devserver will run under https from now on, so make your rest & api endpoints are available under https, and have a correct CORS setup
+* The devserver will run under https from now on, so make sure your rest & api endpoints are available under https, and have a correct CORS setup
 
 ## What is the plugin doing ?
 ### During installation
