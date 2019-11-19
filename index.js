@@ -41,10 +41,10 @@ module.exports = (api, options) => {
     } else if (platform === 'ios' || platform === 'osx') {
       const cordovaConfigPath = api.resolve(`${cordovaPath}/config.xml`)
       const cordovaConfig = fs.readFileSync(cordovaConfigPath, 'utf-8')
-      const regexAppName = /\s+<name>(.*)<\/name>/
+      const regexAppName = /\s+<name(.*)>(.*)<\/name>/
       const appNameMatch = cordovaConfig.match(regexAppName)
-      if (appNameMatch.length >= 2) {
-        const appName = appNameMatch[1]
+      if (appNameMatch.length >= 3) {
+        const appName = appNameMatch[2]
         cordovaConfigPathToUpdate = `${appName}/config.xml`
       } else {
         error('Unable to detect AppName!')
