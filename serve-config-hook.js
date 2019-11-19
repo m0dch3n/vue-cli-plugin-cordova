@@ -1,9 +1,10 @@
 const fs = require('fs')
-const { info } = require('@vue/cli-shared-utils')
+const { info, error } = require('@vue/cli-shared-utils')
 
 const url = process.env.CORDOVA_WEBVIEW_SRC
 const cordovaConfigPath = process.env.CORDOVA_PREPARE_CONFIG
 if (!url || !cordovaConfigPath) {
+  error(`missing url or cordovaConfigPath ${url} ${cordovaConfigPath}`)
   return
 }
 info(`updating ${cordovaConfigPath} content to ${url}`)
