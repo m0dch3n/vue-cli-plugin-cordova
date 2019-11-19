@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.7](https://github.com/m0dch3n/vue-cli-plugin-cordova/compare/v2.3.6...v2.3.7) (2019-11-19)
+
+
+### Bug Fixes
+
+* output missing url or cordovaConfigPath ([e62ad1e](https://github.com/m0dch3n/vue-cli-plugin-cordova/commit/e62ad1e))
+
+
+
 ### [2.3.6](https://github.com/m0dch3n/vue-cli-plugin-cordova/compare/v2.3.5...v2.3.6) (2019-06-25)
 
 
