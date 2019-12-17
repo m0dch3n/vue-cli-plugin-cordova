@@ -98,11 +98,12 @@ module.exports = (api, options) => {
     })
   }
 
-  const cordovaClean = () => {
+  const cordovaClean = (platform) => {
     // cordova clean
-    info(`executing "cordova clean" in folder ${srcCordovaPath}`)
+    info(`executing "cordova clean ${platform}" in folder ${srcCordovaPath}`)
     return spawn.sync('cordova', [
-      'clean'
+      'clean',
+      platform
     ], {
       cwd: srcCordovaPath,
       env: process.env,
@@ -177,7 +178,7 @@ module.exports = (api, options) => {
       process.env.CORDOVA_WEBVIEW_SRC = publicUrl
       process.env.CORDOVA_PREPARE_CONFIG = getCordovaPathConfig(platform)
 
-      cordovaClean()
+      cordovaClean(platform)
 
       cordovaRun(platform)
 
@@ -195,7 +196,7 @@ module.exports = (api, options) => {
     // build WWW
     await runWWWBuild(platform, args)
     // cordova clean
-    await cordovaClean()
+    await cordovaClean(platform)
     // cordova build --release (if you want a build debug build, use cordovaBuild(platform, false)
     await cordovaBuild(platform)
   }
