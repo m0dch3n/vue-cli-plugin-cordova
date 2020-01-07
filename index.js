@@ -55,13 +55,27 @@ module.exports = (api, options) => {
     return api.resolve(`${cordovaPath}/platforms/${platform}/${cordovaConfigPathToUpdate}`)
   }
 
-  const cordovaRun = platform => {
+  const cordovaRun = (platform, target) => {
     // cordova run platform
     info(`executing "cordova run ${platform}" in folder ${srcCordovaPath}`)
-    return spawn.sync('cordova', [
-      'run',
-      platform
-    ], {
+
+    let runCommands
+    if (target) {
+      runCommands = [
+        'run',
+        platform,
+        '--target',
+        `${target}`
+      ]
+    }
+    else {
+      runCommands =[
+        'run',
+        platform
+      ]
+    }
+
+    return spawn.sync('cordova', runCommands, {
       cwd: srcCordovaPath,
       env: process.env,
       stdio: 'inherit', // pipe to console
@@ -171,6 +185,9 @@ module.exports = (api, options) => {
         https,
         public: publicArg
       }
+
+      const target = args.target
+
       // npm run serve
       const server = await api.service.run('serve', serveArgs)
 
@@ -180,7 +197,7 @@ module.exports = (api, options) => {
 
       cordovaClean(platform)
 
-      cordovaRun(platform)
+      cordovaRun(platform, target)
 
       return server
     } else {
