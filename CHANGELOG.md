@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.4.0](https://github.com/m0dch3n/vue-cli-plugin-cordova/compare/v2.3.8...v2.4.0) (2020-01-10)
+
+
+### Features
+
+* specifying a device target ([#102](https://github.com/m0dch3n/vue-cli-plugin-cordova/issues/102)) ([baa9cc0](https://github.com/m0dch3n/vue-cli-plugin-cordova/commit/baa9cc0))
+
+
+
 ### [2.3.8](https://github.com/m0dch3n/vue-cli-plugin-cordova/compare/v2.3.7...v2.3.8) (2019-12-20)
 
 
