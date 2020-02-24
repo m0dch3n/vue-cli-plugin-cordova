@@ -46,6 +46,12 @@ $ npm run cordova-serve-browser # Development Browser
 $ npm run cordova-build-browser # Build Browser
 $ npm run cordova-build-only-www-browser # Build only files to src-cordova
 ```
+Electron
+```sh
+$ npm run cordova-serve-electron # Development Electron
+$ npm run cordova-build-electron # Build Electron
+$ npm run cordova-build-only-www-electron # Build only files to src-cordova
+```
 ## IMPORTANT
 
 * Path rewriting etc does not work under Cordova, that's why it's important to use router 'hash' mode, if you run or build for Cordova. **history mode does not** work! The plugin already tries to fix this automatically...
@@ -78,7 +84,7 @@ In development mode (`npm run cordova-serve-*`), the plugin is starting the dev 
 It is doing this by:
 
 * Adding **cordova.js** to your **index.html**
-* Defining **process.env.CORDOVA_PLATFORM** to **android**, **ios**, **osx** or **browser**
+* Defining **process.env.CORDOVA_PLATFORM** to **android**, **ios**, **osx**, **browser** or **electron** 
 * Starting the Dev Server
 * Executing '**cordova clean**'
 * Executing '**cordova run platform**'
@@ -91,7 +97,7 @@ In production mode (`npm run cordova-build-*`), the plugin is building the app, 
 It is doing this by:
 
 * Adding **cordova.js** to your **index.html**
-* Defining **process.env.CORDOVA_PLATFORM** to **android**, **ios**, **osx** or **browser***
+* Defining **process.env.CORDOVA_PLATFORM** to **android**, **ios**, **osx**, **browser** or **electron** 
 * Building the app, output to **/src-cordova/www**
 * Executing '**cordova clean**'
 * Executing '**cordova build platform  --release**'
