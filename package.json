@@ -23,18 +23,19 @@
   },
   "homepage": "https://github.com/m0dch3n/vue-cli-plugin-cordova#readme",
   "dependencies": {
-    "@vue/cli-shared-utils": "^3.4.0",
-    "address": "^1.0.3",
-    "cordova-plugin-device": "^2.0.1",
+    "@vue/cli-shared-utils": "^4.2.3",
+    "address": "^1.1.2",
     "cross-env": "^5.2.0",
     "cross-spawn": "^6.0.5",
     "hasbin": "^1.2.3",
     "html-webpack-include-assets-plugin": "^1.0.4",
-    "portfinder": "^1.0.20"
+    "portfinder": "^1.0.25"
   },
   "devDependencies": {
+    "minimist": "^1.2.5",
+    "acorn": "^6.4.1",
     "eslint": "^5.16.0",
-    "eslint-plugin-vue-libs": "^3.0.0",
-    "standard-version": "^6.0.1"
+    "eslint-plugin-vue-libs": "^4.0.0",
+    "standard-version": "^7.1.0"
   }
 }
