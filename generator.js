@@ -32,6 +32,9 @@ module.exports = (api, options) => {
       'cordova-serve-osx': 'cross-env CORDOVA_PLATFORM=osx vue-cli-service cordova-serve-osx',
       'cordova-build-osx': 'cross-env CORDOVA_PLATFORM=osx vue-cli-service cordova-build-osx',
       'cordova-build-only-www-osx': 'cross-env CORDOVA_PLATFORM=osx vue-cli-service cordova-build-only-www-osx',
+      'cordova-serve-electron': 'cross-env CORDOVA_PLATFORM=electron vue-cli-service cordova-serve-electron',
+      'cordova-build-electron': 'cross-env CORDOVA_PLATFORM=electron vue-cli-service cordova-build-electron',
+      'cordova-build-only-www-electron': 'cross-env CORDOVA_PLATFORM=electron vue-cli-service cordova-build-only-www-electron',
       'cordova-prepare': 'vue-cli-service cordova-prepare'
     },
     vue: {

@@ -15,10 +15,13 @@ const defaultModes = {
   'cordova-build-browser': 'production',
   'cordova-serve-osx': 'development',
   'cordova-build-osx': 'production',
+  'cordova-serve-electron': 'development',
+  'cordova-build-electron': 'production',
   'cordova-build-only-www-ios': 'production',
   'cordova-build-only-www-android': 'production',
   'cordova-build-only-www-browser': 'production',
   'cordova-build-only-www-osx': 'production',
+  'cordova-build-only-www-electron': 'production',
   'cordova-prepare': 'production'
 }
 
@@ -304,6 +307,14 @@ module.exports = (api, options) => {
     return await runBuild('osx', args)
   })
 
+  api.registerCommand('cordova-serve-electron', async args => {
+    return await runServe('electron', args)
+  })
+
+  api.registerCommand('cordova-build-electron', async args => {
+    return await runBuild('electron', args)
+  })
+
   api.registerCommand('cordova-build-only-www-ios', async args => {
     return await runWWWBuild('ios', args)
   })
@@ -318,6 +329,10 @@ module.exports = (api, options) => {
 
   api.registerCommand('cordova-build-only-www-osx', async args => {
     return await runWWWBuild('osx', args)
+  })
+
+  api.registerCommand('cordova-build-only-www-electron', async args => {
+    return await runWWWBuild('electron', args)
   })
 
   api.registerCommand('cordova-prepare', async args => {

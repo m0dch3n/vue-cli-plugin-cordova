@@ -48,6 +48,11 @@ const prompts = [
         name: 'OSX',
         value: 'osx',
         checked: !!defaults.platforms['osx']
+      },
+      {
+        name: 'Electron',
+        value: 'electron',
+        checked: !!defaults.platforms['electron']
       }
     ]
   }
