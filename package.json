@@ -36,6 +36,6 @@
     "acorn": "^6.4.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue-libs": "^4.0.0",
-    "standard-version": "^7.1.0"
+    "standard-version": "^8.0.1"
   }
 }
