@@ -260,7 +260,7 @@ module.exports = (api, options) => {
         .use(require('html-webpack-include-assets-plugin'), [{
           assets: 'cordova.js',
           append: false,
-          publicPath: false
+          publicPath: options.publicPath !== undefined ? options.publicPath : false
         }])
 
       // process.env.CORDOVA_PLATFORM = platform
